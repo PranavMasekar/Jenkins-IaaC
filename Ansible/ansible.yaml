@@ -1,0 +1,18 @@
+---
+- name: Install Ansible on Ubuntu
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Add Ansible PPA
+      apt_repository:
+        repo: ppa:ansible/ansible
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Ansible
+      apt:
+        name: ansible
+        state: present

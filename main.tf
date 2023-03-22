@@ -117,3 +117,9 @@ resource "aws_instance" "myapp-server" {
     Name = "Jenkins-${var.env_prefix}-server"
   }
 }
+
+resource "null_resource" "update_hosts_file" {
+  provisioner "local-exec" {
+    command = "echo -n '${aws_instance.myapp-server.public_ip} ansible_user=ubuntu' >> hosts"
+  }
+}
