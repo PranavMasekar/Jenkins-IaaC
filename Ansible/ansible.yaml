@@ -1,18 +1,24 @@
----
-- name: Install Ansible on Ubuntu
+- name: Install latest version of Ansible on Ubuntu
   hosts: all
   become: true
 
   tasks:
-    - name: Add Ansible PPA
-      apt_repository:
-        repo: ppa:ansible/ansible
-
     - name: Update apt cache
       apt:
         update_cache: yes
 
-    - name: Install Ansible
+    - name: Install prerequisites
       apt:
+        name:
+          - software-properties-common
+          - python3-pip
+
+    - name: Add Ansible PPA
+      apt_repository:
+        repo: ppa:ansible/ansible
+
+    - name: Install latest version of Ansible
+      pip:
         name: ansible
-        state: present
+        state: latest
+        executable: pip3

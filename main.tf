@@ -120,6 +120,6 @@ resource "aws_instance" "myapp-server" {
 
 resource "null_resource" "update_hosts_file" {
   provisioner "local-exec" {
-    command = "echo -n '${aws_instance.myapp-server.public_ip} ansible_user=ubuntu' >> hosts"
+    command = "truncate -s 0 hosts && echo -n '${aws_instance.myapp-server.public_ip} ansible_user=ubuntu' >> hosts"
   }
 }

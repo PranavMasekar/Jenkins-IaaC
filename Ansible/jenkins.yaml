@@ -12,16 +12,21 @@
     apt:
       name: openjdk-11-jdk
       state: present
-      
+
   - name: Add Jenkins APT Key
     apt_key:
-      url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+      url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
       state: present
 
   - name: Add Jenkins APT Repository
     apt_repository:
       repo: deb https://pkg.jenkins.io/debian-stable binary/
       state: present
+      filename: jenkins
+
+  - name: Update APT cache
+    apt:
+      update_cache: yes
 
   - name: Install Jenkins
     apt:
